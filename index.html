@@ -1,0 +1,472 @@
+from IPython.display import HTML
+
+# Kode HTML lengkap dengan prompt lebih banyak & keren, tampilan Gen Z ultra vibrant
+html_code = """
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI MinStress — Typing Stress Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(45deg, #ff0080, #00ff80, #8000ff, #ff8000, #ffff00);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px #fff, 0 0 40px #ff0080;
+      animation: bounceIn 1s ease-out;
+      position: relative;
+    }
+    h1::after {
+      content: '🔥💥🚀';
+      position: absolute;
+      top: -10px;
+      right: -50px;
+      font-size: 1.5em;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    p {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+      opacity: 0.9;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+      animation: fadeInUp 2s ease-out;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .mode-selector {
+      margin-bottom: 20px;
+      font-size: 1.2em;
+    }
+    .mode-selector label {
+      margin: 0 10px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+    .mode-selector label:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .prompt-display {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      display: none;
+      font-size: 1.1em;
+      text-align: center;
+      border: 2px solid #00ff80;
+      box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+    }
+    textarea {
+      width: 90%;
+      max-width: 600px;
+      height: 250px;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: 3px solid #00ff80;
+      border-radius: 20px;
+      padding: 15px;
+      font-size: 16px;
+      resize: none;
+      outline: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+      position: relative;
+      animation: glowPulse 2s infinite;
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 128, 0.5); }
+      50% { box-shadow: 0 0 30px rgba(0, 255, 128, 0.8); }
+    }
+    textarea:focus {
+      border-color: #ff0080;
+      box-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+      transform: scale(1.02);
+    }
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+      font-style: italic;
+    }
+    button {
+      background: linear-gradient(45deg, #ff0080, #8000ff);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 0, 128, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+    button:hover::before {
+      left: 100%;
+    }
+    button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 0, 128, 0.6);
+    }
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .result {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 25px;
+      border-radius: 20px;
+      margin-top: 20px;
+      text-align: left;
+      max-width: 600px;
+      width: 90%;
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      animation: popIn 0.5s ease-out;
+      box-shadow: 0 0 30px rgba(0, 255, 128, 0.5);
+      position: relative;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .result::before {
+      content: '✨🎉💫';
+      position: absolute;
+      top: -20px;q
+      left: 20px;
+      font-size: 2em;
+      animation: twinkle 1s ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    .status {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 15px;
+      text-shadow: 0 0 10px #fff;
+      animation: rainbow 2s infinite;
+    }
+    @keyframes rainbow {
+      0% { color: #ff0080; }
+      25% { color: #00ff80; }
+      50% { color: #8000ff; }
+      75% { color: #ffff00; }
+      100% { color: #ff0080; }
+    }
+    .advice {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+    .advice ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .advice li {
+      margin: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .advice li::before {
+      content: '💡';
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    /* Floating particles for Gen Z vibe */
+    .particle {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(circle, #ff0080, #00ff80);
+      border-radius: 50%;
+      animation: float 4s linear infinite, rotate 2s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating particles -->
+  <div class="particle" style="left: 5%; animation-delay: 0s;"></div>
+  <div class="particle" style="left: 15%; animation-delay: 0.5s;"></div>
+  <div class="particle" style="left: 25%; animation-delay: 1s;"></div>
+  <div class="particle" style="left: 35%; animation-delay: 1.5s;"></div>
+  <div class="particle" style="left: 45%; animation-delay: 2s;"></div>
+  <div class="particle" style="left: 55%; animation-delay: 2.5s;"></div>
+  <div class="particle" style="left: 65%; animation-delay: 3s;"></div>
+  <div class="particle" style="left: 75%; animation-delay: 3.5s;"></div>
+  <div class="particle" style="left: 85%; animation-delay: 4s;"></div>
+  <div class="particle" style="left: 95%; animation-delay: 4.5s;"></div>
+
+  <h1>AI MinStress — Typing Stress Detector 💥🔥🚀</h1>
+  <p>Ketik di area bawah buat mulai analisis vibes-mu! Tekan "Start" buat gas, "Stop" buat liat hasilnya. Let's go viral! 🚀💯</p>
+
+  <!-- Mode Selector -->
+  <div class="mode-selector">
+    <label><input type="radio" name="mode" value="free" checked> Mode Bebas Ketik (Ketik apa saja, vibes bebas!)</label>
+    <label><input type="radio" name="mode" value="guided"> Mode Ketik Sesuai Ketentuan (Ikuti prompt keren yang diberikan)</label>
+  </div>
+  <div id="promptDisplay" class="prompt-display"></div>
+
+  <textarea id="typingArea" placeholder="Mulai ngetik di sini, bro/sis... 💬 (feel the neon vibes!)"></textarea><br>
+  <button id="startBtn">🚀 Start Vibing</button>
+  <button id="stopBtn" disabled>⏹️ Stop & Drop the Beat</button>
+  <div id="result" class="result" style="display: none;"></div>
+
+  <script>
+    let startTime = null;
+    let lastPress = null;
+    let totalChars = 0;
+    let backspaces = 0;
+    let longPauses = 0;
+    let timestamps = [];
+    let isMonitoring = false;
+    let currentPrompt = '';
+    let mode = 'free'; // Default mode
+
+    const typingArea = document.getElementById('typingArea');
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const resultDiv = document.getElementById('result');
+    const promptDisplay = document.getElementById('promptDisplay');
+    const modeRadios = document.querySelectorAll('input[name="mode"]');
+
+    // Array prompt keren & banyak (15 prompt Gen Z vibes)
+    const prompts = [
+      "Deskripsikan meme favoritmu dan kenapa bikin kamu ketawa ngakak!",
+      "Apa yang bikin kamu hype hari ini? Ceritain vibes-nya!",
+      "Bayangin kamu punya superpower, apa yang kamu lakuin pertama kali?",
+      "Tulis tentang trend TikTok yang lagi viral dan pendapatmu soal itu.",
+      "Jika kamu bisa teleport ke mana aja, tempat apa yang kamu pilih dan kenapa?",
+      "Ceritain pengalaman cringe-mu yang paling epik di sosial media.",
+      "Apa musik yang lagi kamu puter terus? Jelasin kenapa addictive!",
+      "Bayangin kamu jadi karakter anime, siapa kamu dan apa petualanganmu?",
+      "Tulis pesan motivasi buat temenmu yang lagi down, bikin mereka hype!",
+      "Apa makanan atau minuman yang bikin kamu feel good banget?",
+      "Jika dunia ini game, apa achievement yang kamu mau unlock pertama?",
+      "Ceritain tentang crush atau orang yang bikin kamu nervous tapi excited.",
+      "Apa hal random yang bikin hari kamu lebih fun?",
+      "Tulis tentang mimpi aneh yang kamu inget, bikin orang lain bingung!",
+      "Jika kamu bisa ubah satu hal di dunia, apa itu dan kenapa?"
+    ];
+
+    // Event listener untuk mode selector
+    modeRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        mode = e.target.value;
+        if (mode === 'guided') {
+          currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+          promptDisplay.textContent = `Ketentuan Keren: ${currentPrompt}`;
+          promptDisplay.style.display = 'block';
+        } else {
+          promptDisplay.style.display = 'none';
+          currentPrompt = '';
+        }
+      });
+    });
+
+    typingArea.addEventListener('keydown', (event) => {
+      if (!isMonitoring) return;
+
+      const now = Date.now() / 1000;
+      if (lastPress !== null) {
+        const pause = now - lastPress;
+        if (pause > 2.0) {
+          longPauses++;
+        }
+      }
+      lastPress = now;
+      timestamps.push(now);
+
+      if (event.key === 'Backspace') {
+        backspaces++;
+      } else if (event.key.length === 1) {
+        totalChars++;
+      }
+    });
+
+    startBtn.addEventListener('click', () => {
+      startTime = Date.now() / 1000;
+      lastPress = startTime;
+      totalChars = 0;
+      backspaces = 0;
+      longPauses = 0;
+      timestamps = [startTime];
+      isMonitoring = true;
+      typingArea.value = '';
+      typingArea.focus();
+      resultDiv.style.display = 'none';
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+
+      if (mode === 'guided' && !currentPrompt) {
+        currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        promptDisplay.textContent = `Ketentuan Keren: ${currentPrompt}`;
+        promptDisplay.style.display = 'block';
+      } else if (mode === 'free') {
+        promptDisplay.style.display = 'none';
+        currentPrompt = '';
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      isMonitoring = false;
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+
+      const duration = timestamps.length > 1 ? timestamps[timestamps.length - 1] - timestamps[0] : 1;
+      const cps = totalChars / duration;
+      const wpm = (totalChars / 5) / (duration / 60); // WPM calculation
+
+      // Improved accuracy: More factors
+      let stressScore = 0;
+      let advice = [];
+
+      // Backspace ratio
+      const backspaceRatio = backspaces / (totalChars + 1);
+      if (backspaceRatio > 0.15) {
+        stressScore += 30;
+        advice.push('Banyak koreksi, mungkin ada tekanan. Coba periksa pikiranmu, bro!');
+      } else if (backspaceRatio > 0.05) {
+        stressScore += 15;
+        advice.push('Beberapa koreksi, mungkin perlu fokus lebih. Chill dulu!');
+      }
+
+      // Long pauses
+      if (longPauses > 3) {
+        stressScore += 25;
+        advice.push('Sering berhenti lama, ada yang ganggu konsentrasi? Ambil napas!');
+      } else if (longPauses > 1) {
+        stressScore += 10;
+        advice.push('Ada jeda beberapa kali. Santai, no rush!');
+      }
+
+      // WPM factor
+      if (wpm < 20 && totalChars > 10) {
+        stressScore += 20;
+        advice.push('Kecepatan rendah. Mungkin lagi lelah atau overthinking? Recharge!');
+      } else if (wpm > 80) {
+        stressScore += 10;
+        advice.push('Kecepatan tinggi! Hati-hati jangan salah ketik karena terburu, legend!');
+      }
+
+      // Consistency (standard deviation of inter-key times)
+      if (timestamps.length > 2) {
+        const interKeyTimes = [];
+        for (let i = 1; i < timestamps.length; i++) {
+          interKeyTimes.push(timestamps[i] - timestamps[i-1]);
+        }
+        const mean = interKeyTimes.reduce((a, b) => a + b) / interKeyTimes.length;
+        const stdDev = Math.sqrt(interKeyTimes.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / interKeyTimes.length);
+        if (stdDev > 0.5) {
+          stressScore += 40;
+          advice.push('Ritme ngetik tidak konsisten. Ini tanda stres, cari ritme yang nyaman!');
+        } else if (stdDev > 0.2) {
+          stressScore += 20;
+          advice.push('Sedikit inkonsistensi. Perhatikan cara ngetikmu, ya!');
+        }
+      }
+
+      // Status based on score
+      let status;
+      if (stressScore > 80) {
+        status = "🤯 OVERLOAD! (Aduh, parah banget!)";
+        advice.unshift('STOP SEJENAK! Ambil istirahat panjang, lakukan hal yang kamu suka.');
+      } else if (stressScore > 50) {
+        status = "😬 HIGH (Lumayan tegang nih!)";
+        advice.unshift('Oke, ini berat. Rehat sebentar, minum teh hangat, atau dengarkan musik.');
+      } else if (stressScore > 20) {
+        status = "😐 MODERATE (Ada beban dikit!)";
+        advice.unshift('Sedikit tekanan, no biggie. Tarik napas dan atur fokus.');
+      } else {
+        status = "😊 LOW (Santai kayak pantai!)";
+        advice.unshift('Vibes kamu positif banget! Tetap jaga mood ini, legend!');
+      }
+
+      if (advice.length === 0) {
+        advice.push('Kamu keren! Lanjutkan vibing positifmu!');
+      }
+
+      // Gen Z output: More emojis, slang, fun format
+      resultDiv.innerHTML = `
+        <h3>📊 ANALISIS VIBES MENGETIKMU 🔥 (Ultra Asik Edition)</h3>
+        <p>⚡ Kecepatan: ${cps.toFixed(2)} karakter/detik (${wpm.toFixed(2)} WPM - speedrun mode?)</p>
+        <p>🔄 Backspace: ${backspaces} (overthinking level: expert?)</p>
+        <p>⏳ Jeda panjang: ${longPauses} (brain lag?)</p>
+        <p class="status">😊 Status: ${status}</p>
+        <div class="advice">
+          <h4>💡 Tips buat kamu (no cap, langsung aksi!):</h4>
+          <ul>${advice.map(item => `<li>${item}</li>`).join('')}</ul>
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
+"""
+
+# Display in Colab
+HTML(html_code)
