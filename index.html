@@ -1,21 +1,17 @@
-from IPython.display import HTML
-
-# Kode HTML lengkap dengan prompt lebih banyak & keren, tampilan Gen Z ultra vibrant
-html_code = """
+<!-- Kode HTML lengkap dengan prompt lebih banyak & keren, tampilan Gen Z ultra vibrant -->
 <!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI MinStress — Typing Stress Detector</title>
+  <title>Reverie</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(45deg, #ff0080, #00ff80, #8000ff, #ff8000, #ffff00);
-      background-size: 400% 400%;
-      animation: gradientShift 3s ease infinite;
-      color: white;
+      background: linear-gradient(120deg, #0a0f2c 0%, #1a1a40 60%, #23234d 100%), url('https://www.transparenttextures.com/patterns/stardust.png');
+      background-blend-mode: lighten;
+      color: #fff;
       padding: 20px;
       text-align: center;
       margin: 0;
@@ -26,11 +22,92 @@ html_code = """
       justify-content: center;
       overflow-x: hidden;
       position: relative;
+      /* Subtle nebula effect */
+      box-shadow: 0 0 80px 10px #2e3a6a, 0 0 200px 40px #1a1a40, 0 0 400px 100px #23234d;
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Nebula overlay */
+    .nebula {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      /* pointer-events: none; */
+      z-index: 0;
+      background: radial-gradient(ellipse at 60% 20%, rgba(80,120,255,0.18) 0%, rgba(0,0,0,0) 60%),
+          radial-gradient(ellipse at 30% 80%, rgba(255,80,200,0.12) 0%, rgba(0,0,0,0) 70%),
+          radial-gradient(ellipse at 80% 60%, rgba(0,255,200,0.10) 0%, rgba(0,0,0,0) 60%);
+      mix-blend-mode: lighten;
+    }
+    /* Menu bar */
+    .top-menu {
+      width: 100vw;
+      background: rgba(20, 24, 48, 0.85);
+      color: #fff;
+      font-size: 1.3em;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 18px 0 12px 0;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 16px 0 rgba(40,60,120,0.18);
+      border-bottom: 2px solid #2e3a6a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    .main-content {
+      margin-top: 70px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Star field */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      opacity: 0.7;
+      width: 2px;
+      height: 2px;
+      z-index: 0;
+      animation: twinkleStar 2s infinite alternate;
+    }
+    @keyframes twinkleStar {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+    /* Space emoji floaters */
+    .space-emoji {
+      position: absolute;
+      font-size: 2.2em;
+      pointer-events: none;
+      z-index: 2;
+      animation: floatSpace 8s linear infinite;
+    }
+    .space-emoji.spin {
+      animation: spinSpace 3s linear infinite, floatSpace 8s linear infinite;
+    }
+    .space-emoji.move-all {
+      animation: moveAll 7s linear infinite alternate;
+    }
+    @keyframes floatSpace {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-60px) scale(1.1); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    @keyframes spinSpace {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes moveAll {
+      0% { transform: translate(0,0) scale(1); }
+      20% { transform: translate(40px, -30px) scale(1.1); }
+      40% { transform: translate(-30px, 40px) scale(1.2); }
+      60% { transform: translate(60px, 60px) scale(0.9); }
+      80% { transform: translate(-40px, -40px) scale(1.05); }
+      100% { transform: translate(0,0) scale(1); }
     }
     h1 {
       font-size: 3em;
@@ -40,12 +117,11 @@ html_code = """
       position: relative;
     }
     h1::after {
-      content: '🔥💥🚀';
+      content: '';
       position: absolute;
       top: -10px;
       right: -50px;
       font-size: 1.5em;
-      animation: spin 1s linear infinite;
     }
     @keyframes bounceIn {
       0% { transform: scale(0.3); opacity: 0; }
@@ -183,15 +259,12 @@ html_code = """
     .result::before {
       content: '✨🎉💫';
       position: absolute;
-      top: -20px;q
+      top: -20px;
       left: 20px;
       font-size: 2em;
-      animation: twinkle 1s ease-in-out infinite;
+      /* Removed unnecessary twinkle animation */
     }
-    @keyframes twinkle {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.2); }
-    }
+    /* Removed twinkle keyframes */
     .status {
       font-size: 24px;
       font-weight: bold;
@@ -245,37 +318,146 @@ html_code = """
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+    .cover-page {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(120deg, #0a0f2c 0%, #1a1a40 60%, #23234d 100%), url('https://www.transparenttextures.com/patterns/stardust.png');
+      background-blend-mode: lighten;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.7s;
+      pointer-events: auto;
+    }
+    .cover-content {
+      text-align: center;
+      z-index: 101;
+    }
+    .cover-title {
+      font-size: 3.5em;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      text-shadow: 0 0 40px #2e3a6a, 0 0 80px #1a1a40;
+      animation: bounceIn 1.2s;
+    }
+    .enter-btn {
+      font-size: 1.5em;
+      padding: 18px 50px;
+      border-radius: 40px;
+      border: none;
+      background: linear-gradient(90deg, #00c3ff 0%, #3a7bd5 100%);
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 8px 32px 0 rgba(58,123,213,0.25);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin-top: 10px;
+    }
+    .enter-btn:hover {
+      background: linear-gradient(90deg, #3a7bd5 0%, #00c3ff 100%);
+      transform: scale(1.07);
+    }
   </style>
 </head>
+
 <body>
-  <!-- Floating particles -->
-  <div class="particle" style="left: 5%; animation-delay: 0s;"></div>
-  <div class="particle" style="left: 15%; animation-delay: 0.5s;"></div>
-  <div class="particle" style="left: 25%; animation-delay: 1s;"></div>
-  <div class="particle" style="left: 35%; animation-delay: 1.5s;"></div>
-  <div class="particle" style="left: 45%; animation-delay: 2s;"></div>
-  <div class="particle" style="left: 55%; animation-delay: 2.5s;"></div>
-  <div class="particle" style="left: 65%; animation-delay: 3s;"></div>
-  <div class="particle" style="left: 75%; animation-delay: 3.5s;"></div>
-  <div class="particle" style="left: 85%; animation-delay: 4s;"></div>
-  <div class="particle" style="left: 95%; animation-delay: 4.5s;"></div>
-
-  <h1>AI MinStress — Typing Stress Detector 💥🔥🚀</h1>
-  <p>Ketik di area bawah buat mulai analisis vibes-mu! Tekan "Start" buat gas, "Stop" buat liat hasilnya. Let's go viral! 🚀💯</p>
-
-  <!-- Mode Selector -->
-  <div class="mode-selector">
-    <label><input type="radio" name="mode" value="free" checked> Mode Bebas Ketik (Ketik apa saja, vibes bebas!)</label>
-    <label><input type="radio" name="mode" value="guided"> Mode Ketik Sesuai Ketentuan (Ikuti prompt keren yang diberikan)</label>
+  <div class="nebula"></div>
+  <!-- Startup Animation Overlay -->
+  <div id="startupOverlay" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at 50% 40%,rgba(80,120,255,0.18) 0%,rgba(0,0,0,0.95) 80%),linear-gradient(120deg,#0a0f2c 0%,#1a1a40 60%,#23234d 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 1s;">
+    <div id="startupStars"></div>
+    <div style="position:relative;z-index:2;">
+      <span style="font-size:3.5em;font-weight:700;color:#fff;letter-spacing:2px;text-shadow:0 0 40px #2e3a6a,0 0 80px #1a1a40,0 0 60px #00c3ff;animation:reverieGlow 1.5s cubic-bezier(.4,2,.6,1) forwards;opacity:0;" id="startupTitle">Reverie</span>
+    </div>
   </div>
-  <div id="promptDisplay" class="prompt-display"></div>
-
-  <textarea id="typingArea" placeholder="Mulai ngetik di sini, bro/sis... 💬 (feel the neon vibes!)"></textarea><br>
-  <button id="startBtn">🚀 Start Vibing</button>
-  <button id="stopBtn" disabled>⏹️ Stop & Drop the Beat</button>
-  <div id="result" class="result" style="display: none;"></div>
-
+  @keyframes reverieGlow {
+    0% { opacity: 0; filter: blur(12px) brightness(0.5); letter-spacing: 0.2em; }
+    60% { opacity: 1; filter: blur(0px) brightness(1.2); letter-spacing: 0.1em; }
+    100% { opacity: 1; filter: blur(0px) brightness(1); letter-spacing: 0.05em; }
+  }
+  @keyframes starTwinkle {
+    0%,100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  <div class="main-content" id="mainContent" style="display:flex;">
+    <!-- Space Emojis (planets, rockets, aliens, etc) - restored, including center -->
+    <span class="space-emoji" style="top:10%; left:8%; animation-delay:0s;">🪐</span>
+    <span class="space-emoji spin" style="top:20%; left:80%; animation-delay:0.5s;">🚀</span>
+    <span class="space-emoji move-all" style="top:60%; left:12%; animation-delay:1s;">👾</span>
+    <span class="space-emoji" style="top:75%; left:70%; animation-delay:1.5s;">🌟</span>
+    <span class="space-emoji move-all" style="top:30%; left:50%; animation-delay:2s;">🛸</span>
+    <span class="space-emoji spin" style="top:50%; left:85%; animation-delay:2.5s;">🛰️</span>
+    <span class="space-emoji move-all" style="top:80%; left:30%; animation-delay:3s;">👽</span>
+    <span class="space-emoji" style="top:15%; left:60%; animation-delay:3.5s;">🌌</span>
+    <span class="space-emoji spin" style="top:40%; left:25%; animation-delay:4s;">🪐</span>
+    <span class="space-emoji move-all" style="top:65%; left:55%; animation-delay:4.5s;">🛸</span>
+    <h1>Reverie <span style="font-size:0.7em;">🌌🪐</span></h1>
+    <!-- Removed unclear/annoying text above main content -->
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+      <label for="modeFree"><input id="modeFree" type="radio" name="mode" value="free" checked> Mode Bebas Ketik (Ketik apa saja, vibes bebas!)</label>
+      <label for="modeGuided"><input id="modeGuided" type="radio" name="mode" value="guided"> Mode Ketik Sesuai Ketentuan (Ikuti prompt keren yang diberikan)</label>
+    </div>
+    <div id="promptDisplay" class="prompt-display"></div>
+    <textarea id="typingArea" placeholder="Mulai ngetik di sini, bro/sis... 💬 (feel the neon vibes!)"></textarea><br>
+    <button id="startBtn">🚀 Start Vibing</button>
+    <button id="stopBtn" disabled>⏹️ Stop & Drop the Beat</button>
+    <div id="result" class="result" style="display: none;"></div>
+  </div>
   <script>
+        // --- Startup Animation ---
+        window.addEventListener('DOMContentLoaded', () => {
+          const overlay = document.getElementById('startupOverlay');
+          const title = document.getElementById('startupTitle');
+          const stars = document.getElementById('startupStars');
+          // Generate stars
+          for (let i = 0; i < 48; i++) {
+            const s = document.createElement('div');
+            const size = Math.random() * 2.5 + 1.5;
+            s.style.position = 'absolute';
+            s.style.width = `${size}px`;
+            s.style.height = `${size}px`;
+            s.style.borderRadius = '50%';
+            s.style.background = 'white';
+            s.style.opacity = 0.7;
+            s.style.left = `${Math.random() * 100}%`;
+            s.style.top = `${Math.random() * 100}%`;
+            s.style.animation = `starTwinkle ${1.5 + Math.random()}s infinite alternate`;
+            stars.appendChild(s);
+          }
+          stars.style.position = 'absolute';
+          stars.style.top = 0;
+          stars.style.left = 0;
+          stars.style.width = '100%';
+          stars.style.height = '100%';
+          stars.style.zIndex = 1;
+          // Animate title in
+          setTimeout(() => {
+            title.style.opacity = 1;
+            title.style.animationPlayState = 'running';
+          }, 200);
+          // Fade out overlay after 2s
+          setTimeout(() => {
+            overlay.style.opacity = 0;
+            overlay.style.pointerEvents = 'none';
+            setTimeout(() => {
+              overlay.style.display = 'none';
+            }, 1000);
+          }, 2000);
+        });
+    // No cover page logic needed; show main content immediately
+    const mainContent = document.getElementById('mainContent');
+    mainContent.style.display = 'flex';
+    mainContent.style.pointerEvents = 'auto';
+    // Space Emojis: Animate all with random delays for dynamic effect
+    document.querySelectorAll('.space-emoji').forEach((el, idx) => {
+      el.style.animationDelay = (Math.random() * 5).toFixed(2) + 's';
+    });
+    // Ensure main content is always interactive after cover is gone
+    mainContent.style.pointerEvents = 'auto';
     let startTime = null;
     let lastPress = null;
     let totalChars = 0;
@@ -315,14 +497,16 @@ html_code = """
     // Event listener untuk mode selector
     modeRadios.forEach(radio => {
       radio.addEventListener('change', (e) => {
-        mode = e.target.value;
-        if (mode === 'guided') {
-          currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
-          promptDisplay.textContent = `Ketentuan Keren: ${currentPrompt}`;
-          promptDisplay.style.display = 'block';
-        } else {
-          promptDisplay.style.display = 'none';
-          currentPrompt = '';
+        if (e.target.checked) {
+          mode = e.target.value;
+          if (mode === 'guided') {
+            currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+            promptDisplay.textContent = `Ketentuan Keren: ${currentPrompt}`;
+            promptDisplay.style.display = 'block';
+          } else {
+            promptDisplay.style.display = 'none';
+            currentPrompt = '';
+          }
         }
       });
     });
@@ -333,7 +517,7 @@ html_code = """
       const now = Date.now() / 1000;
       if (lastPress !== null) {
         const pause = now - lastPress;
-        if (pause > 2.0) {
+        if (pause > 1.5) {
           longPauses++;
         }
       }
@@ -347,6 +531,20 @@ html_code = """
       }
     });
 
+    // Fix: Enable/disable buttons correctly and prevent double start
+    function resetButtons() {
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+    function setMonitoringButtons() {
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    }
+    // Animate all space emojis with random delays for more dynamic effect
+    document.querySelectorAll('.space-emoji').forEach((el, idx) => {
+      el.style.animationDelay = (Math.random() * 5).toFixed(2) + 's';
+    });
+
     startBtn.addEventListener('click', () => {
       startTime = Date.now() / 1000;
       lastPress = startTime;
@@ -358,14 +556,15 @@ html_code = """
       typingArea.value = '';
       typingArea.focus();
       resultDiv.style.display = 'none';
-      startBtn.disabled = true;
-      stopBtn.disabled = false;
+      setMonitoringButtons();
 
-      if (mode === 'guided' && !currentPrompt) {
-        currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+      if (mode === 'guided') {
+        if (!currentPrompt) {
+          currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        }
         promptDisplay.textContent = `Ketentuan Keren: ${currentPrompt}`;
         promptDisplay.style.display = 'block';
-      } else if (mode === 'free') {
+      } else {
         promptDisplay.style.display = 'none';
         currentPrompt = '';
       }
@@ -373,10 +572,16 @@ html_code = """
 
     stopBtn.addEventListener('click', () => {
       isMonitoring = false;
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
+      resetButtons();
 
-      const duration = timestamps.length > 1 ? timestamps[timestamps.length - 1] - timestamps[0] : 1;
+      // Only analyze if there was actual typing
+      if (timestamps.length < 2 || totalChars === 0) {
+        resultDiv.innerHTML = `<h3>Belum ada data ngetik! Mulai dulu, bro/sis! 🚦</h3>`;
+        resultDiv.style.display = 'block';
+        return;
+      }
+
+      const duration = timestamps[timestamps.length - 1] - timestamps[0];
       const cps = totalChars / duration;
       const wpm = (totalChars / 5) / (duration / 60); // WPM calculation
 
@@ -386,30 +591,33 @@ html_code = """
 
       // Backspace ratio
       const backspaceRatio = backspaces / (totalChars + 1);
-      if (backspaceRatio > 0.15) {
-        stressScore += 30;
+      if (backspaceRatio > 0.18) {
+        stressScore += 35;
         advice.push('Banyak koreksi, mungkin ada tekanan. Coba periksa pikiranmu, bro!');
-      } else if (backspaceRatio > 0.05) {
-        stressScore += 15;
+      } else if (backspaceRatio > 0.08) {
+        stressScore += 18;
         advice.push('Beberapa koreksi, mungkin perlu fokus lebih. Chill dulu!');
       }
 
-      // Long pauses
-      if (longPauses > 3) {
-        stressScore += 25;
+      // Long pauses (more sensitive)
+      if (longPauses > 4) {
+        stressScore += 30;
         advice.push('Sering berhenti lama, ada yang ganggu konsentrasi? Ambil napas!');
-      } else if (longPauses > 1) {
-        stressScore += 10;
+      } else if (longPauses > 2) {
+        stressScore += 15;
         advice.push('Ada jeda beberapa kali. Santai, no rush!');
       }
 
-      // WPM factor
-      if (wpm < 20 && totalChars > 10) {
-        stressScore += 20;
+      // WPM factor (more granularity)
+      if (wpm < 15 && totalChars > 10) {
+        stressScore += 25;
         advice.push('Kecepatan rendah. Mungkin lagi lelah atau overthinking? Recharge!');
-      } else if (wpm > 80) {
-        stressScore += 10;
+      } else if (wpm > 90) {
+        stressScore += 12;
         advice.push('Kecepatan tinggi! Hati-hati jangan salah ketik karena terburu, legend!');
+      } else if (wpm < 30 && totalChars > 10) {
+        stressScore += 10;
+        advice.push('Sedikit lambat, mungkin lagi mikir keras.');
       }
 
       // Consistency (standard deviation of inter-key times)
@@ -420,24 +628,40 @@ html_code = """
         }
         const mean = interKeyTimes.reduce((a, b) => a + b) / interKeyTimes.length;
         const stdDev = Math.sqrt(interKeyTimes.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / interKeyTimes.length);
-        if (stdDev > 0.5) {
-          stressScore += 40;
+        if (stdDev > 0.6) {
+          stressScore += 45;
           advice.push('Ritme ngetik tidak konsisten. Ini tanda stres, cari ritme yang nyaman!');
-        } else if (stdDev > 0.2) {
-          stressScore += 20;
+        } else if (stdDev > 0.25) {
+          stressScore += 22;
           advice.push('Sedikit inkonsistensi. Perhatikan cara ngetikmu, ya!');
         }
       }
 
-      // Status based on score
+      // New: Typing burstiness (max chars in 2s window)
+      let maxBurst = 0;
+      if (timestamps.length > 10) {
+        for (let i = 0; i < timestamps.length; i++) {
+          let count = 0;
+          for (let j = i; j < timestamps.length; j++) {
+            if (timestamps[j] - timestamps[i] <= 2) count++;
+          }
+          if (count > maxBurst) maxBurst = count;
+        }
+        if (maxBurst > 20) {
+          stressScore += 10;
+          advice.push('Kamu sempat ngetik super cepat! Pastikan tetap santai.');
+        }
+      }
+
+      // Status based on score (more levels)
       let status;
-      if (stressScore > 80) {
+      if (stressScore > 90) {
         status = "🤯 OVERLOAD! (Aduh, parah banget!)";
         advice.unshift('STOP SEJENAK! Ambil istirahat panjang, lakukan hal yang kamu suka.');
-      } else if (stressScore > 50) {
+      } else if (stressScore > 60) {
         status = "😬 HIGH (Lumayan tegang nih!)";
         advice.unshift('Oke, ini berat. Rehat sebentar, minum teh hangat, atau dengarkan musik.');
-      } else if (stressScore > 20) {
+      } else if (stressScore > 30) {
         status = "😐 MODERATE (Ada beban dikit!)";
         advice.unshift('Sedikit tekanan, no biggie. Tarik napas dan atur fokus.');
       } else {
@@ -452,10 +676,10 @@ html_code = """
       // Gen Z output: More emojis, slang, fun format
       resultDiv.innerHTML = `
         <h3>📊 ANALISIS VIBES MENGETIKMU 🔥 (Ultra Asik Edition)</h3>
-        <p>⚡ Kecepatan: ${cps.toFixed(2)} karakter/detik (${wpm.toFixed(2)} WPM - speedrun mode?)</p>
+        <p>⚡ Kecepatan: ${cps.toFixed(2)} karakter/detik (${wpm.toFixed(2)} WPM)</p>
         <p>🔄 Backspace: ${backspaces} (overthinking level: expert?)</p>
         <p>⏳ Jeda panjang: ${longPauses} (brain lag?)</p>
-        <p class="status">😊 Status: ${status}</p>
+        <p class="status">Status: ${status}</p>
         <div class="advice">
           <h4>💡 Tips buat kamu (no cap, langsung aksi!):</h4>
           <ul>${advice.map(item => `<li>${item}</li>`).join('')}</ul>
@@ -466,7 +690,3 @@ html_code = """
   </script>
 </body>
 </html>
-"""
-
-# Display in Colab
-HTML(html_code)
